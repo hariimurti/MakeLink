@@ -13,6 +13,7 @@ namespace MakeLink
     public partial class FormMain : Form
     {
         private bool isFolder = false;
+        private string targetName = string.Empty;
 
         public FormMain()
         {
@@ -30,6 +31,7 @@ namespace MakeLink
             {
                 isFolder = false;
                 textSource.Text = openFile.FileName;
+                targetName = Path.GetFileName(openFile.FileName);
 
                 radioButton1.Checked = true;
                 radioButton2.Enabled = true;
@@ -44,6 +46,7 @@ namespace MakeLink
             {
                 isFolder = true;
                 textSource.Text = folderBrowser.SelectedPath;
+                targetName = Path.GetFileName(folderBrowser.SelectedPath);
 
                 radioButton1.Checked = true;
                 radioButton2.Enabled = false;
@@ -53,6 +56,7 @@ namespace MakeLink
 
         private void btnSaveLink_Click(object sender, EventArgs e)
         {
+            saveFile.FileName = targetName;
             DialogResult result = saveFile.ShowDialog();
             if (result == DialogResult.OK)
             {
